@@ -1,0 +1,41 @@
+# TODO: Check if passing api-key on cli leaks key when using secrets
+---
+name: "Publish Ansible Collection"
+author: "Sebastian Yaghoubi"
+description: "Publish an Ansible collection to Galaxy"
+branding:
+  color: "red"
+  icon: "upload"
+
+inputs:
+  collection-path:
+    default: "."
+    description: "Path to the collection directory"
+    required: false
+  galaxy-api-key:
+    description: "API key to Ansible Galaxy"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        echo "Installing Ansible"
+        python -m pip install ansible-core
+
+    - name: Publish Collection
+      shell: bash
+      run: |
+        if [[ -f "${{ inputs.collection-path }}" ]]; then
+          ansible-galaxy collection publish --api-key "${{ inputs.galaxy-api-key }}" "${{ input.collection-path }}"
+        else
+          echo "::error::Ansible collection not found at ${{ inputs.collection-path }}"
+          exit 1
+        fi
