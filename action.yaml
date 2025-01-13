@@ -1,5 +1,3 @@
-# TODO: Check if passing api-key on cli leaks key when using secrets
----
 name: "Publish Ansible Collection"
 author: "Sebastian Yaghoubi"
 description: "Publish an Ansible collection to Galaxy"
@@ -33,7 +31,7 @@ runs:
       shell: bash
       run: |
         if [[ -f "${{ inputs.collection }}" ]]; then
-          ansible-galaxy collection publish --api-key "${{ inputs.galaxy-api-key }}" "${{ inputs.collection }}"
+          ansible-galaxy collection publish --api-key ${{ inputs.galaxy-api-key }} ${{ inputs.collection }}
         else
           echo "::error::Ansible collection not found at ${{ inputs.collection }}"
           exit 1
