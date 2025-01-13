@@ -34,7 +34,7 @@ runs:
       shell: bash
       run: |
         if [[ -f "${{ inputs.collection-path }}" ]]; then
-          ansible-galaxy collection publish --api-key "${{ inputs.galaxy-api-key }}" "${{ input.collection-path }}"
+          ansible-galaxy collection publish --api-key "${{ inputs.galaxy-api-key }}" "${{ inputs.collection-path }}"
         else
           echo "::error::Ansible collection not found at ${{ inputs.collection-path }}"
           exit 1
