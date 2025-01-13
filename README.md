@@ -13,13 +13,11 @@ A GitHub action to publish an Ansible collection to Galaxy (NG).
 
 ## Inputs
 
-### `collection-path`
+### `collection`
 
-default: "."
+description: "Path to the collection"
 
-description: "Path to the collection directory"
-
-required: false
+required: true
 
 ### `galaxy-api-key`
 
